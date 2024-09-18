@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { useDispatch } from '@wordpress/data';
 import { store as noticesStore } from '@wordpress/notices';
 import {
 	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
@@ -32,14 +32,6 @@ import {
 export const CreateThemePanel = ( { createType } ) => {
 	const { createErrorNotice } = useDispatch( noticesStore );
 
-	const subfolder = useSelect( ( select ) => {
-		const stylesheet = select( 'core' ).getCurrentTheme().stylesheet;
-		if ( stylesheet.lastIndexOf( '/' ) > 1 ) {
-			return stylesheet.substring( 0, stylesheet.lastIndexOf( '/' ) );
-		}
-		return '';
-	}, [] );
-
 	const [ theme, setTheme ] = useState( {
 		name: '',
 		description: '',
@@ -47,7 +39,6 @@ export const CreateThemePanel = ( { createType } ) => {
 		author: '',
 		author_uri: '',
 		tags_custom: '',
-		subfolder,
 	} );
 
 	const cloneTheme = () => {
